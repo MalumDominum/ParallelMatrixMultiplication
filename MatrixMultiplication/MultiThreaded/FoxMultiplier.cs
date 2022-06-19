@@ -10,14 +10,14 @@ public class FoxMultiplier : ParallelMatrixMultiplier
             throw new ArithmeticException($"Can't multiply matrices with sizes {FirstMatrix.GetLength(0)}x{FirstMatrix.GetLength(1)} " +
                                           $"and {SecondMatrix.GetLength(0)}x{SecondMatrix.GetLength(1)}");
 
+        var stepsCount = (int)Math.Sqrt(threadNumber);
+        if (threadNumber != Math.Pow(stepsCount, 2))
+            throw new ArgumentException("You must use numbers from which you can take the square root");
+
         var subMatrixSize = Math.Sqrt(Math.Pow(FirstMatrix.GetLength(0), 2) / threadNumber);
         if (subMatrixSize % 1 != 0)
             throw new ArithmeticException($"Can't divide matrix with size {FirstMatrix.GetLength(0)}x{FirstMatrix.GetLength(1)} " +
                                           $"on {threadNumber} equal parts");
-
-        var stepsCount = (int) Math.Sqrt(threadNumber);
-        if (threadNumber != Math.Pow(stepsCount, 2))
-            throw new ArgumentException("You must use numbers from which you can take the square root");
 
         var blocks = InitBlocks(stepsCount);
         for (var iter = 0; iter < stepsCount; iter++)
