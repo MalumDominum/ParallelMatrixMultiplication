@@ -36,7 +36,7 @@ for (var i = 0; i < matrixSizes.Length; i++)
     {
         Console.WriteLine($"with {threadNumbers[j]} threads used:");
 
-        multiplier = new FoxMultiplier(firstMatrix, secondMatrix);
+        multiplier = new FoxMultiplierWithThread(firstMatrix, secondMatrix);
         results.Add(timer.RecordSpentTime(() => multiplier.Multiply(threadNumbers[j])));
         var foxTime = timer.TimeElapsed;
         Console.WriteLine($"\tFox multiplier: {foxTime} ms; speedup: {simpleTimeResults[i] / foxTime}");
